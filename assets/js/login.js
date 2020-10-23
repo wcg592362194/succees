@@ -15,6 +15,7 @@ $(function () {
 
     // 自定义校验规则
     var form = layui.form;
+    var layer = layui.layer;
     form.verify({
         pwd: [/^[\S]{6,12}$/, '密码必须6到12位，且不能出现空格'],
         repwd: function (value) {
@@ -32,14 +33,19 @@ $(function () {
     // 注册功能，监听注册表单的提交事件
     $('#form_reg').on('submit', function (e) {
         e.preventDefault();
-        $.post('http://ajax.frontend.itheima.net/api/reguser', {
+        var data = {
             username: $('#form_reg [name=username]').val(),
             password: $('#form_reg [name=password]').val()
-        }, function (res) {
+        };
+        $.post('http://ajax.frontend.itheima.net/api/reguser', data, function (res) {
             if (res.status !== 0) {
-                return console.log('注册失败', res.message);
+                // return console.log('注册失败', res.message);
+                return layer.msg(res.message);
             }
-            console.log('注册成功！');
+            // console.log('注册成功！');
+            layer.msg('注册成功，请登录！');
+            // 主动触发点击事件
+            $('#link_login').click();
         });
     });
 });
