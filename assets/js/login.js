@@ -48,4 +48,26 @@ $(function () {
             $('#link_login').click();
         });
     });
+
+    // 登录功能
+    $('#form_login').on('submit', function (e) {
+        e.preventDefault();
+        console.log($(this).serialize());
+        $.ajax({
+            url: 'http://ajax.frontend.itheima.net/api/login',
+            method: 'POST',
+            // 快速获取表单中的数据
+            data: $(this).serialize(),
+            success: function (res) {
+                if (res.status !== 0) {
+                    return layer.msg('登录失败！');
+                }
+                layer.msg('登录成功');
+                // 存储
+                localStorage.setItem('token', res.token);
+                // 跳转到后台主页
+                location.href = "/index.html";
+            }
+        });
+    });
 });
