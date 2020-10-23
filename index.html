@@ -37,7 +37,7 @@
             <div class="layui-side-scroll">
                 <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
                 <ul class="layui-nav layui-nav-tree" lay-filter="test" lay-shrink="all">
-                    <li class="layui-nav-item"><a href="/home/dashboard.html" target="fm"><span class="iconfont icon-home"></span>首页</a></li>
+                    <li class="layui-nav-item layui-this"><a href="/home/dashboard.html" target="fm"><span class="iconfont icon-home"></span>首页</a></li>
                     <li class="layui-nav-item">
                         <a class="" href="javascript:;"><span class="iconfont icon-16"></span>文章管理</a>
                         <dl class="layui-nav-child">
@@ -61,7 +61,10 @@
 
         <div class="layui-body">
             <!-- 内容主体区域 -->
-            <iframe src="" name="fm" frameborder="0"></iframe>
+            <!-- 没有指定 src，左侧 a 带默认的动画 -->
+            <!-- <iframe src="" name="fm" frameborder="0"></iframe> -->
+            <!-- 指定 src，左侧 a 不带默认的动画了 -->
+            <iframe src="/home/dashboard.html" name="fm" frameborder="0"></iframe>
         </div>
 
         <div class="layui-footer">
