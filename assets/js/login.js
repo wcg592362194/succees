@@ -28,4 +28,18 @@ $(function () {
             }
         }
     });
+
+    // 注册功能，监听注册表单的提交事件
+    $('#form_reg').on('submit', function (e) {
+        e.preventDefault();
+        $.post('http://ajax.frontend.itheima.net/api/reguser', {
+            username: $('#form_reg [name=username]').val(),
+            password: $('#form_reg [name=password]').val()
+        }, function (res) {
+            if (res.status !== 0) {
+                return console.log('注册失败', res.message);
+            }
+            console.log('注册成功！');
+        });
+    });
 });
