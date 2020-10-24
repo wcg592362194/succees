@@ -45,4 +45,16 @@ $(function () {
             }
         });
     });
+
+    // 通过代理的方式，为 btn-edit 按钮绑定点击事件
+    var indexEdit = null;
+    $('tbody').on('click', '.btn-edit', function () {
+        // 修改分类信息的层
+        indexEdit = layer.open({
+            type: 1,
+            area: ['500px', '250px'],
+            title: '修改文章分类',
+            content: $('#dialog-edit').html()
+        });
+    });
 });
