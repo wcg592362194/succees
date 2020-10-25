@@ -110,6 +110,7 @@ $(function () {
 
     // 删除文章
     $('tbody').on('click', '.btn-delete', function () {
+        var len = $('.btn-delete').length;
         var id = $(this).attr('data-id');
         layer.confirm('确认删除?', {
             icon: 3,
@@ -123,8 +124,14 @@ $(function () {
                         return layer.msg('删除文章失败！');
                     }
                     layer.msg('删除文章成功！');
+                    // 判断当前页中是否还有剩余的数据
+                    // 如果没有，则让页码值减1后再重新获取
+                    if (len === 1) {
+                        // 证明删除完毕后当前页面已经没有数据了
+                        // 页码值最小是 1
+                        q.pagenum = q.pagenum === 1 ? 1 : q.pagenum - 1;
+                    }
                     initTable();
-                    layer.close(index);
                 }
             });
         });
