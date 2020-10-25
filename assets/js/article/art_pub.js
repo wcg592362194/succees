@@ -76,6 +76,25 @@ $(function () {
             .toBlob(function (blob) { // 将 Canvas 画布上的内容，转化为文件对象
                 // 得到文件对象后，进行后续的操作
                 fd.append('cover_img', blob);
+                publishArticle(fd);
             });
     });
+
+    function publishArticle(fd) {
+        $.ajax({
+            method: 'POST',
+            url: '/my/article/add',
+            data: fd,
+            contentType: false,
+            processData: false,
+            success: function (res) {
+                if (res.status !== 0) {
+                    return layer.msg('发布文章失败！');
+                }
+                layer.msg('发布文章成功！');
+                location.href = '/article/art_list.html';
+                window.parent.document.querySelector('[href="/article/art_list.html"]').click();
+            }
+        });
+    }
 });
