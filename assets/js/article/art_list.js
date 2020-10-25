@@ -89,6 +89,8 @@ $(function () {
             count: total, // 总条数
             limit: q.pagesize, // 每页显示条数
             curr: q.pagenum, // 默认选中哪一页
+            layout: ['count', 'limit', 'prev', 'page', 'next', 'skip'],
+            limits: [2, 3, 5, 10],
             // 分页发生切换的时候触发 jump
             // 1. 点击页码会触发
             // 2. 调用 laypage.render 会触发
