@@ -1,5 +1,6 @@
 $(function () {
     var layer = layui.layer;
+    var form = layui.form;
     // 获取文章分类的列表
     initArtCateList();
 
@@ -55,6 +56,16 @@ $(function () {
             area: ['500px', '250px'],
             title: '修改文章分类',
             content: $('#dialog-edit').html()
+        });
+
+        // 获取当前分类数据
+        var id = $(this).attr('data-id');
+        $.ajax({
+            method: 'GET',
+            url: `/my/article/cates/${id}`,
+            success: function(res) {
+                form.val('form-edit', res.data);
+            }
         });
     });
 });
