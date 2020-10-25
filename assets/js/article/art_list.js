@@ -65,4 +65,16 @@ $(function () {
         });
     }
 
+    // 筛选功能
+    $('#form-search').on('submit', function (e) {
+        e.preventDefault();
+        var cate_id = $('[name=cate_id]').val();
+        var state = $('[name=state]').val();
+
+        q.cate_id = cate_id;
+        q.state = state;
+
+        // 根据最新的筛选条件重新渲染表格数据
+        initTable();
+    });
 });
