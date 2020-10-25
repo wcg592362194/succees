@@ -88,7 +88,20 @@ $(function () {
             elem: 'pageBox',
             count: total, // 总条数
             limit: q.pagesize, // 每页显示条数
-            curr: q.pagenum // 默认选中哪一页
+            curr: q.pagenum, // 默认选中哪一页
+            // 分页发生切换的时候触发 jump
+            // 1. 点击页码会触发
+            // 2. 调用 laypage.render 会触发
+            jump: function (obj, first) {
+                // 把最新的页码值给查询对象
+                q.pagenum = obj.curr;
+                // first 为 false 代表点击页面的时候出发点
+                // first 为 true 代表直接调用 laypage.render 触发的
+                if (!first) {
+                    // 获取并渲染
+                    initTable();
+                }
+            }
         });
     }
 });
