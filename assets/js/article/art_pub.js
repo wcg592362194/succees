@@ -31,4 +31,24 @@ $(function () {
     };
     // 3. 初始化裁剪区域
     $image.cropper(options);
+
+    // 选择封面功能
+    $('#btnChooseImage').on('click', function () {
+        // 模拟点击行为
+        $('#coverFile').click();
+    });
+
+    // 监听 coverFile 的 change
+    $('#coverFile').on('change', function (e) {
+        var files = e.target.files;
+        if (files.length === 0) {
+            return;
+        }
+        var newImgURL = URL.createObjectURL(files[0]);
+        // 为裁剪区域重新设置图片
+        $image
+            .cropper('destroy') // 销毁旧的裁剪区域
+            .attr('src', newImgURL) // 重新设置图片路径
+            .cropper(options); // 重新初始化裁剪区域    
+    });
 });
