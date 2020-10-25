@@ -51,4 +51,21 @@ $(function () {
             .attr('src', newImgURL) // 重新设置图片路径
             .cropper(options); // 重新初始化裁剪区域    
     });
+
+    // 定义文章的发布状态
+    var art_state = '已发布';
+    $('#btnSave2').on('click', function () {
+        art_state = '草稿';
+    });
+
+    // 为表单绑定 submit 提交事件
+    $('#form-pub').on('submit', function (e) {
+        e.preventDefault();
+        // 基于 form 表单快速创建一个 FormData 对象
+        var fd = new FormData($(this)[0]);
+        fd.append('state', art_state);
+        fd.forEach(function (v, k) {
+            console.log(k, v);
+        });
+    });
 });
