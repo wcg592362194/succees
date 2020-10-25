@@ -97,6 +97,7 @@ $(function () {
             jump: function (obj, first) {
                 // 把最新的页码值给查询对象
                 q.pagenum = obj.curr;
+                q.pagesize = obj.limit;
                 // first 为 false 代表点击页面的时候出发点
                 // first 为 true 代表直接调用 laypage.render 触发的
                 if (!first) {
