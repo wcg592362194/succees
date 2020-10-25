@@ -1,6 +1,7 @@
 $(function () {
     var layer = layui.layer;
     var form = layui.form;
+    var laypage = layui.laypage;
 
     function padZero(n) {
         return n > 9 ? n : '0' + n;
@@ -41,6 +42,9 @@ $(function () {
                 // 使用模板引擎渲染
                 var htmlStr = template('tpl-table', res);
                 $('tbody').html(htmlStr);
+
+                // 表格数据渲染好后，再渲染分页
+                renderPage(res.total);
             }
         });
     }
@@ -77,4 +81,14 @@ $(function () {
         // 根据最新的筛选条件重新渲染表格数据
         initTable();
     });
+
+    // 渲染分页的方法
+    function renderPage(total) {
+        laypage.render({
+            elem: 'pageBox',
+            count: total, // 总条数
+            limit: q.pagesize, // 每页显示条数
+            curr: q.pagenum // 默认选中哪一页
+        });
+    }
 });
