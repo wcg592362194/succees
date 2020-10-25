@@ -3,6 +3,8 @@ $(function () {
     var form = layui.form;
     // 加载文章分类
     initCate();
+    // 初始富文本编辑器
+    initEditor();
 
     function initCate() {
         $.ajax({
