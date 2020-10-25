@@ -17,10 +17,10 @@
             <form class="layui-form" action="">
                 <div class="layui-form-item layui-inline">
                     <select name="cate_id">
-                        <option value="">所有分类</option>
+                        <!-- <option value="">所有分类</option>
                         <option value="010">北京</option>
                         <option value="021">上海</option>
-                        <option value="0571">杭州</option>
+                        <option value="0571">杭州</option> -->
                     </select>
                 </div>
                 <div class="layui-form-item layui-inline">
@@ -78,6 +78,13 @@
                 <button type="button" class="layui-btn layui-btn layui-btn-xs layui-btn-danger">删除</button>
             </td>
         </tr>
+        {{/each}}
+    </script>
+    <!-- 分类的模板引擎 -->
+    <script type="text/html" id="tpl-cate">
+        <option value="">所有分类</option>
+        {{each data}}
+        <option value="{{$value.Id}}">{{$value.name}}</option>
         {{/each}}
     </script>
     <script src="/assets/lib/layui/layui.all.js"></script>

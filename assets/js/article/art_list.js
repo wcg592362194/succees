@@ -1,5 +1,6 @@
 $(function () {
     var layer = layui.layer;
+    var form = layui.form;
 
     function padZero(n) {
         return n > 9 ? n : '0' + n;
@@ -43,4 +44,25 @@ $(function () {
             }
         });
     }
+
+    // 获取文章分类
+    initCate();
+
+    function initCate() {
+        $.ajax({
+            method: 'GET',
+            url: '/my/article/cates',
+            success: function (res) {
+                if (res.status !== 0) {
+                    return layer.msg('获取分类数据失败！');
+                }
+                // 使用模板引擎渲染分类
+                var htmlStr = template('tpl-cate', res);
+                $('[name=cate_id]').html(htmlStr);
+                // 通知 layui 重新渲染表单区域的 UI 结构
+                form.render();
+            }
+        });
+    }
+
 });
