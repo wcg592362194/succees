@@ -2,24 +2,27 @@ $(function () {
     var layer = layui.layer;
     var form = layui.form;
     // 加载文章分类
-    initCate();
+    // initCate();
     // 初始富文本编辑器
     initEditor();
 
     function initCate() {
-        $.ajax({
-            method: 'GET',
-            url: '/my/article/cates',
-            success: function (res) {
-                if (res.status !== 0) {
-                    return layer.msg('初始化文章分类失败！');
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                method: 'GET',
+                url: '/my/article/cates',
+                success: function (res) {
+                    if (res.status !== 0) {
+                        return layer.msg('初始化文章分类失败！');
+                    }
+                    // 使用模板引擎，渲染分类的下拉菜单
+                    var htmlStr = template('tpl-cate', res);
+                    $('[name=cate_id]').html(htmlStr);
+                    form.render();
+                    resolve();
                 }
-                // 使用模板引擎，渲染分类的下拉菜单
-                var htmlStr = template('tpl-cate', res);
-                $('[name=cate_id]').html(htmlStr);
-                form.render();
-            }
-        });
+            });
+        })
     }
 
     // // 1. 初始化图片裁剪器
@@ -107,13 +110,11 @@ $(function () {
         data: {
             Id: idx
         },
-        success: function (res) {
-            // console.log(res);
+        success: async function (res) {
+            // 等分类信息渲染完毕后
+            await initCate();
+            // 再进行表单数据的填充
             form.val('article-form', res.data);
-            setTimeout(function () {
-                $('[name=cate_id]').find(`option[value=${res.data.cate_id}]`).prop('selected', true);
-                form.render();
-            }, 1000);
 
             $('#image').prop('src', 'http://ajax.frontend.itheima.net' + res.data.cover_img);
             // 1. 初始化图片裁剪器
